@@ -6,24 +6,26 @@ echo "[" > team.json
 while IFS="," read -r id name email
 do
   echo $id $name
-  id=${id}0920
+  id=${id}
   icpc_id=${id}
   group_ids=[0]
   name=${name}
+  #TODO
   organization_id=${id}
 
   json_object=$(cat <<EOF
   {
     "id": "$id",
     "icpc_id": "$icpc_id",
+    "lable": "$id",
     "group_ids": $group_ids,
     "name": "$name",
-    "organization_id": "$organization_id"
+    "display_name": "$name"   
   },
 EOF
 )
-echo "$json_object" >> object.json
-echo "JSON object written to object.json"
+echo "$json_object" >> team.json
+echo "JSON object written to team.json"
 done < <(tail -n +2 $1)
 
-echo "]" >> object.json
+echo "]" >> team.json

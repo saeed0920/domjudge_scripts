@@ -28,6 +28,6 @@ echo $type
 while  read -r obj; do
  name=$(echo "$obj" | jq -r '.name')
  id=$(echo "$obj" | jq -r '.id')
- create_account ${id} "$name" "team" ${name} ${id}
+ create_account ${id} "$name" "team" "${name}" "${id}"
 
-done < <(jq -c '.[]' object.json) 
+done < <(jq -c '.[]' team.json) 
