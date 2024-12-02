@@ -1,0 +1,33 @@
+#!/usr/bin/bash
+# this file generate acc for each team base on json file
+
+outputFile=$1
+> $outputFile
+
+create_account() {
+  local random_number=$((RANDOM % 10000))
+    echo "t${id:0:3}${name:0:3}${random_number}" 
+
+    local id="$1"
+    local username="t${id:0:3}${2:0:3}${random_number}"
+    #local password="$3"
+    local type="$3"
+    local name="$4"
+    local team_id="$5"
+echo $type
+    echo "-  id: $id" >> $outputFile
+    echo "   username: $username" >> $outputFile
+    #echo "Password: $password"
+    echo "   team_id: $team_id" >> $outputFile
+    echo "   type: $type" >> $outputFile
+    echo "   name: $name" >> $outputFile
+    echo "" >> $outputFile
+}
+
+
+while  read -r obj; do
+ name=$(echo "$obj" | jq -r '.name')
+ id=$(echo "$obj" | jq -r '.id')
+ create_account ${id} "$name" "team" ${name} ${id}
+
+done < <(jq -c '.[]' object.json) 

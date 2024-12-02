@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+# 
+# This bash script should read the file and create user for each team also print all information about team and user into info.txt file === 
+echo "[" > object.json
+
+while IFS="," read -r id name email
+do
+  echo $id $name
+  id=${id}0920
+  icpc_id=${id}
+  group_ids=[0]
+  name=${name}
+  organization_id=${id}
+
+  json_object=$(cat <<EOF
+  {
+    "id": "$id",
+    "icpc_id": "$icpc_id",
+    "group_ids": $group_ids,
+    "name": "$name",
+    "organization_id": "$organization_id"
+  },
+EOF
+)
+echo "$json_object" >> object.json
+echo "JSON object written to object.json"
+done < <(tail -n +2 $1)
+
+echo "]" >> object.json
