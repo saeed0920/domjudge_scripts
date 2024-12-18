@@ -2,12 +2,13 @@
 
 PARAMETERS="systemd.unified_cgroup_hierarchy=0 cgroup_enable=memory swapaccount=1"
 username=saeed
-password=pk7zdSV784Ad
+read -p "enter the password for user saeed" password
 
 echo "This script working on debian bases ,pls use ubuntu on server!"
 
 useradd -m -s /bin/bash "$username"
 echo "$username:$password" | chpasswd
+usermod -aG sudo $username
 
 # setup for domjudge
 apt update && apt upgrade -y
