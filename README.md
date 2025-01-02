@@ -1,16 +1,15 @@
 # This repo will be update
 
+“This repository is for building and deploying a judging server for organizing programming competitions.”
 
-## CreateTeamInDomJudge 
+## Build
 ```
-Create json file for import in domjudge web panel
-!Just base on csv file you pass in file as argument
-```
+“The build folder contains scripts and programs for setting up the server to host programming competitions.”
 
-## CreateAccBaseOnTeamJudge
-```
-This file create acc(username) without password 
-for generate password pls take look at password_manager in domjudge panel!
-!Btw pass the json file create in CreateTeamInDomJudge in this file as argument
 ```
 
+## Doc
+```
+“The doc folder contains documentation that can be referenced as needed.”
+
+```
