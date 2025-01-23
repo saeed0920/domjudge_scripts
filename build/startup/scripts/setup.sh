@@ -3,7 +3,7 @@
 # functions
 checkValid() 
 {
-if [ $1 -ge 1 ]
+if [ $1 -ge 1 ]; then
   echo "Script recived error"
   exit $1
 fi
