@@ -73,7 +73,7 @@ writeFile "admin_password ${admin_password}"
 writeFile "judgehost_password ${judgehost_password}"
 
 
-read "Pls input the number of judgeHosts!" judgehost_number
+read -p "Pls input the number of judgeHosts!" judgehost_number
 for (( c=0; c<$judgehost_number; c++ ))
 do
 # JudgeHost 
