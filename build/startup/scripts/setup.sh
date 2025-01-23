@@ -25,7 +25,7 @@ usermod -aG sudo $username
 
 # setup for domjudge
 apt update && apt upgrade -y
-apt install nginx snapd vim ca-certificates curl wget -y
+apt install nginx snapd vim zsh ca-certificates curl wget -y
 
 echo "Check if snap installed"
 snap install hello-world
@@ -67,7 +67,16 @@ bash -c 'cat > /var/snap/docker/current/config/daemon.json <<EOF
 EOF'
 
 snap restart docker
-docker run hello-world
+
+while [ true ]
+do
+  sleep 1
+  docker run hello-world
+  if [ $? -eq 0 ]; then
+    break
+  fi
+done
+
 checkValid $?
 docker pull mariadb 
 docker pull domjudge/domserver:latest 

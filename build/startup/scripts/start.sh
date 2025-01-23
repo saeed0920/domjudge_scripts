@@ -2,6 +2,14 @@
 # setup domjudge ,generate password
 set -e
 
+FilePath="/passwords.txt"
+touch $FilePath
+writeFile() 
+{
+ echo "" >> $FilePath
+ echo $@ >> $FilePath
+}
+
 generate_randomPassword() 
 {
   local password=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 10)
@@ -13,7 +21,7 @@ mysqlPassword=$(generate_randomPassword)
 
 
 ### mariadb
-#docker run -it --restart unless-stopped --name dj-mariadb -e MYSQL_ROOT_PASSWORD=FexS6qD3 -e MYSQL_USER=domjudge -e MYSQL_PASSWORD=1rL3TYqn -e MYSQL_DATABASE=domjudge -p 13306:3306 mariadb --max-connections=1000
+#docker run -it --restart unless-stopped --name dj-mariadb -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword -e MYSQL_USER=domjudge -e MYSQL_PASSWORD=$mysqlPassword -e MYSQL_DATABASE=domjudge -p 13306:3306 mariadb --max-connections=1000 --innodb-log-file-size=2G --max-allowed-packet=1G
 
 ### MariaDB setup
 docker run -dit --restart unless-stopped --name dj-mariadb \
@@ -28,17 +36,24 @@ docker run -dit --restart unless-stopped --name dj-mariadb \
 
 echo $mysqlRootPassword 
 echo $mysqlPassword
+writeFile "mysqlRootPassword: $mysqlRootPassword "
+writeFile "mysqlPassword: $mysqlPassword "
 
-return 0
 
 echo "Waiting for MariaDB to be ready..."
-until docker exec dj-mariadb mysqladmin -u root -p"$mysqlRootPassword" ping --silent; do
+until docker exec dj-mariadb mariadb -u root -p"$mysqlRootPassword"; do
   sleep 2
 done
 echo "MariaDB is ready!"
 
 ### domserver
-docker run --link dj-mariadb:mariadb -it -e MYSQL_HOST=mariadb -e MYSQL_USER=domjudge -e MYSQL_DATABASE=domjudge -e MYSQL_PASSWORD=$mysqlPassword -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword -p 80:80 --name domserver domjudge/domserver:latest
+docker run --link dj-mariadb:mariadb -it -e MYSQL_HOST=mariadb \ 
+  -e MYSQL_USER=domjudge \ 
+  -e MYSQL_DATABASE=domjudge \
+  -e MYSQL_PASSWORD=$mysqlPassword \ 
+  -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword \ 
+  -p 80:80 \
+  --name domserver domjudge/domserver:latest
 
 echo "Waiting for Domjudge server to be ready..."
 until curl -s http://localhost:80/ > /dev/null; do
