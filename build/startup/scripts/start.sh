@@ -4,6 +4,7 @@ set -e
 
 FilePath="/passwords.txt"
 touch $FilePath
+echo "" > $FilePath
 writeFile() 
 {
  echo "" >> $FilePath
@@ -77,9 +78,9 @@ read -p "Pls input the number of judgeHosts!: " judgehost_number
 for (( c=0; c<$judgehost_number; c++ ))
 do
 # JudgeHost 
-docker run -it --privileged \
+docker run -dit --privileged \
   -v /sys/fs/cgroup:/sys/fs/cgroup \
-  --name judgehost-$item \
+  --name judgehost-$c \
   --link domserver:domserver \
   --hostname judgedaemon-$c \
   -e DAEMON_ID=$c \
