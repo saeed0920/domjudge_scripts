@@ -6,7 +6,7 @@ sleep 5
 PARAMETERS="systemd.unified_cgroup_hierarchy=0 cgroup_enable=memory swapaccount=1"
 
 read -p "enter the username: " username
-read -p "enter the password for user saeed: " password
+read -p "enter the password for user $username : " password
 
 echo "This script working on debian bases ,pls use ubuntu on server!"
 
