@@ -47,13 +47,18 @@ done
 echo "MariaDB is ready!"
 
 ### domserver
-docker run --link dj-mariadb:mariadb -it -e MYSQL_HOST=mariadb \ 
-  -e MYSQL_USER=domjudge \ 
+docker run -dit \
+  --restart unless-stopped \
+  --link dj-mariadb:mariadb \
+  -it \
+  -e MYSQL_HOST=mariadb \
+  -e MYSQL_USER=domjudge \
   -e MYSQL_DATABASE=domjudge \
-  -e MYSQL_PASSWORD=$mysqlPassword \ 
-  -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword \ 
+  -e MYSQL_PASSWORD=$mysqlPassword \
+  -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword \
   -p 80:80 \
-  --name domserver domjudge/domserver:latest
+  --name domserver \
+  domjudge/domserver:latest
 
 echo "Waiting for Domjudge server to be ready..."
 until curl -s 127.0.0.1:80 > /dev/null; do
@@ -72,11 +77,12 @@ read "Pls input the number of judgeHosts!" judgehost_number
 for (( c=0; c<$judgehost_number; c++ ))
 do
 # JudgeHost 
-docker run -it --privileged \ 
- -v /sys/fs/cgroup:/sys/fs/cgroup \
- --name judgehost-$item --link domserver:domserver \
- --hostname judgedaemon-$c \
- -e DAEMON_ID=$c \ 
- -e JUDGEDAEMON_PASSWORD="$judgehost_password" domjudge/judgehost:latest
+docker run -it --privileged \
+  -v /sys/fs/cgroup:/sys/fs/cgroup \
+  --name judgehost-$item \
+  --link domserver:domserver \
+  --hostname judgedaemon-$c \
+  -e DAEMON_ID=$c \
+  -e JUDGEDAEMON_PASSWORD="$judgehost_password" \
+  domjudge/judgehost:latestdone
 done
-
