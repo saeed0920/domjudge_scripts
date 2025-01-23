@@ -1,8 +1,12 @@
 #!/usr/bin/bash
 
+echo "Should run In Ubuntu-server distro"
+sleep 5
+# this parameters for update the grub for cgroup v1
 PARAMETERS="systemd.unified_cgroup_hierarchy=0 cgroup_enable=memory swapaccount=1"
-username=saeed
-read -p "enter the password for user saeed" password
+
+read -p "enter the username: " username
+read -p "enter the password for user saeed: " password
 
 echo "This script working on debian bases ,pls use ubuntu on server!"
 
@@ -29,15 +33,21 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docke
 groupadd docker
 usermod -aG docker $username
 
+
+## TODO
+# installing aws and config that!
+# this data going to public repo!!!!!
+# docker login!
+# add secret file in gitIgnore
+
 # pull domjudge_server domjudge_judgehost mariadb
-docker pull focker.ir/mariadb 
-docker pull focker.ir/domjudge/domserver:latest 
-docker pull focker.ir/domjudge/judgehost:latest
+# Also we can use AbrArvan insted of focker
+docker pull mariadb 
+docker pull domjudge/domserver:latest 
+docker pull domjudge/judgehost:latest
 
 
-# Define the parameters to add
-# Backup the original grub file
-cp /etc/default/grub /etc/default/grub.bak
+# Deetc/default/grub /etc/default/grub.bak
 # Check if the GRUB_CMDLINE_LINUX line exists
 if grep -q "^GRUB_CMDLINE_LINUX=" /etc/default/grub 
 then
