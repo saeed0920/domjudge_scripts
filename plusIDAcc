@@ -1,0 +1,2 @@
+#!/usr/bin/bash
+# This bash script just take the yaml file and ++ every number you want in teamID 

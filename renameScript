@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+# rename all prefix of *.txt files into the *.in , in current directory
+read -p "pls insert the current prefix: " prefix
+read -p "pls insert the prefix you want: " prefixF
+
+list=$(ls *"$prefix" 2>&1)
+
+if [ $? -eq "0" ] 
+then 
+  for item in $list
+do 
+  renameValue="${item%."$prefix"}"
+  echo "$item => ${renameValue}.$prefixF"
+  mv $item "${renameValue}.$prefixF"
+done
+else 
+  echo "prefix has problem!!"
+exit 1 
+fi

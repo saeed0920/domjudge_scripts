@@ -3,25 +3,25 @@
 
 echo "[" > team.json
 
-while IFS="," read -r id name email
+while IFS="," read -r id date gmail name univerisity users 
 do
-  newId=$((id + 2))
+  newId=$((id + 100))
   #echo $newId
   echo $id $name
   id=$newId
   icpc_id=$newId
-  group_ids=[3]
+  group_ids=3
   name=${name}
   # If you need affiliation
-  organization_id=$newId
+  #organization_id=$newId
 
   json_object=$(cat <<EOF
   {
     "id": "$id",
-    "icpc_id": "$icpc_id",
-    "group_ids": $group_ids,
+    "group_ids": ["${group_ids}"],
     "name": "$name",
-    "display_name": "$name"   
+    "display_name": "$name",
+    "email": "$gmail"
   },
 EOF
 )
