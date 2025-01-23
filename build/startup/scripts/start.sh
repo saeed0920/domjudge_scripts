@@ -73,7 +73,7 @@ writeFile "admin_password ${admin_password}"
 writeFile "judgehost_password ${judgehost_password}"
 
 
-read -p "Pls input the number of judgeHosts!" judgehost_number
+read -p "Pls input the number of judgeHosts!: " judgehost_number
 for (( c=0; c<$judgehost_number; c++ ))
 do
 # JudgeHost 
@@ -84,5 +84,5 @@ docker run -it --privileged \
   --hostname judgedaemon-$c \
   -e DAEMON_ID=$c \
   -e JUDGEDAEMON_PASSWORD="$judgehost_password" \
-  domjudge/judgehost:latestdone
+  domjudge/judgehost:latest
 done
