@@ -69,7 +69,6 @@ EOF'
 snap restart docker
 docker run hello-world
 checkValid $?
-
 docker pull mariadb 
 docker pull domjudge/domserver:latest 
 docker pull domjudge/judgehost:latest
