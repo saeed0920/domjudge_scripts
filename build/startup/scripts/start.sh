@@ -68,7 +68,7 @@ done
 echo "Domjudge server is ready!"
 
 admin_password=$(docker exec -it domserver cat /opt/domjudge/domserver/etc/initial_admin_password.secret)
-judgehost_password=$(docker exec -it domserver cat /opt/domjudge/domserver/etc/restapi.secret)
+judgehost_password=$(docker exec -it domserver cat /opt/domjudge/domserver/etc/restapi.secret | awk '/judgehost/ {print $4}')
 
 writeFile "admin_password ${admin_password}"
 writeFile "judgehost_password ${judgehost_password}"
