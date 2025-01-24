@@ -1,6 +1,7 @@
 #1/bin/bash
 
-cd Contest4
+if [ -e $1 ]; then
+cd $1
 for i in $(ls) ; do
 
 cd "$i"
@@ -30,6 +31,14 @@ rmdir ../out
 cd ../..
 
 cd ..
-echo "hiiiiii"
+
 
 done 
+echo complete
+
+else
+
+ echo "cant find the file"
+ exit 0
+
+fi
