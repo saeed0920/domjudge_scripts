@@ -21,6 +21,9 @@ mysqlRootPassword=$(generate_randomPassword)
 mysqlPassword=$(generate_randomPassword)
 
 
+# Get the number of judgehost 
+read -p "Pls input the number of judgeHosts!: " judgehost_number
+
 ### mariadb
 #docker run -it --restart unless-stopped --name dj-mariadb -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword -e MYSQL_USER=domjudge -e MYSQL_PASSWORD=$mysqlPassword -e MYSQL_DATABASE=domjudge -p 13306:3306 mariadb --max-connections=1000 --innodb-log-file-size=2G --max-allowed-packet=1G
 
@@ -74,7 +77,6 @@ writeFile "admin_password ${admin_password}"
 writeFile "judgehost_password ${judgehost_password}"
 
 
-read -p "Pls input the number of judgeHosts!: " judgehost_number
 for (( c=0; c<$judgehost_number; c++ ))
 do
 # JudgeHost 
