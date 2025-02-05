@@ -28,6 +28,7 @@ mysqlPassword=$(generate_randomPassword)
 read -p "Please input the number of judge hosts: " judgehost_number
 
 # Start MariaDB container
+echo "Starting MariaDB container..."
 docker run -dit --restart unless-stopped --name dj-mariadb \
   -e MYSQL_ROOT_PASSWORD="$mysqlRootPassword" \
   -e MYSQL_USER=domjudge \
@@ -39,8 +40,8 @@ docker run -dit --restart unless-stopped --name dj-mariadb \
   --max-allowed-packet=1G
 
 # Output MySQL passwords and write them to the file
-echo $mysqlRootPassword 
-echo $mysqlPassword
+echo "MySQL root password: $mysqlRootPassword"
+echo "MySQL user password: $mysqlPassword"
 writeFile "mysqlRootPassword: $mysqlRootPassword"
 writeFile "mysqlPassword: $mysqlPassword"
 
@@ -52,6 +53,7 @@ done
 echo "MariaDB is ready!"
 
 # Start DOMjudge server container
+echo "Starting DOMjudge server container..."
 docker run -dit \
   --restart unless-stopped \
   --link dj-mariadb:mariadb \
@@ -73,6 +75,7 @@ done
 echo "DOMjudge server is ready!"
 
 # Retrieve admin and judgehost passwords from the DOMjudge server
+echo "Retrieving admin and judgehost passwords..."
 admin_password=$(docker exec -it domserver cat /opt/domjudge/domserver/etc/initial_admin_password.secret)
 judgehost_password=$(docker exec -it domserver cat /opt/domjudge/domserver/etc/restapi.secret | awk '/judgehost/ {print $4}')
 
@@ -81,6 +84,7 @@ writeFile "admin_password ${admin_password}"
 writeFile "judgehost_password ${judgehost_password}"
 
 # Start judge host containers
+echo "Starting judge host containers..."
 for (( c=0; c<$judgehost_number; c++ ))
 do
   docker run -dit --privileged \
@@ -91,4 +95,7 @@ do
     -e DAEMON_ID=$c \
     -e JUDGEDAEMON_PASSWORD="$judgehost_password" \
     domjudge/judgehost:latest
+  echo "Judge host $c started."
 done
+
+echo "Setup complete. All containers are up and running."
