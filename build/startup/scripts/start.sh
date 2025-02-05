@@ -27,6 +27,9 @@ mysqlPassword=$(generate_randomPassword)
 # Get the number of judge hosts from the user
 read -p "Please input the number of judge hosts: " judgehost_number
 
+# Get the port for DOMjudge server from the user
+read -p "Please input the port for DOMjudge server: " domserver_port
+
 # Start MariaDB container
 echo "Starting MariaDB container..."
 docker run -dit --restart unless-stopped --name dj-mariadb \
@@ -63,13 +66,13 @@ docker run -dit \
   -e MYSQL_DATABASE=domjudge \
   -e MYSQL_PASSWORD=$mysqlPassword \
   -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword \
-  -p 80:80 \
+  -p $domserver_port:80 \
   --name domserver \
   domjudge/domserver:latest
 
 # Wait for DOMjudge server to be ready
 echo "Waiting for DOMjudge server to be ready..."
-until curl -s 127.0.0.1:80 > /dev/null; do
+until curl -s 127.0.0.1:$domserver_port > /dev/null; do
   sleep 2
 done
 echo "DOMjudge server is ready!"
