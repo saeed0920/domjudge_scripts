@@ -4,7 +4,7 @@
 set -e
 
 # File to store generated passwords
-FilePath="/passwords.txt"
+FilePath="./passwords.txt"
 touch $FilePath
 echo "" > $FilePath
 
