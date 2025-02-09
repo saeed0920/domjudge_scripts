@@ -48,6 +48,7 @@ done
 echo "MariaDB is ready!"
 
 ### domserver
+read -p "Pls input number for port domserver" domserver_port
 docker run -dit \
   --restart unless-stopped \
   --link dj-mariadb:mariadb \
@@ -57,7 +58,7 @@ docker run -dit \
   -e MYSQL_DATABASE=domjudge \
   -e MYSQL_PASSWORD=$mysqlPassword \
   -e MYSQL_ROOT_PASSWORD=$mysqlRootPassword \
-  -p 80:80 \
+  -p $domserver_port:$domserver_port \
   --name domserver \
   domjudge/domserver:latest
 

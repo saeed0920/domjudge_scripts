@@ -43,8 +43,17 @@ checkValid $?
 #   tee /etc/apt/sources.list.d/docker.list > /dev/null
 #apt-get update && apt update
 #apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
-snap install docker
 
+echo "10.202.10.10 
+10.202.10.11" > /etc/resolv.conf
+# Add Docker's official GPG key:
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –
+# Add the repository to Apt sources:
+$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+# check the using docker repository
+$ apt-cache policy docker-ce
+#install docker with apt 
+$ sudo apt install docker-ce
 
 groupadd docker
 usermod -aG docker $username
@@ -59,14 +68,7 @@ usermod -aG docker $username
 # pull domjudge_server domjudge_judgehost mariadb
 # Also we can use AbrArvan insted of focker
 # Use AbrArvan for pulling img
-bash -c 'cat > /var/snap/docker/current/config/daemon.json <<EOF
-{
-  "insecure-registries" : ["https://docker.arvancloud.ir"],
-  "registry-mirrors": ["https://docker.arvancloud.ir"]
-}
-EOF'
 
-snap restart docker
 
 while [ true ]
 do
