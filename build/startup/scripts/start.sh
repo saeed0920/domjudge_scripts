@@ -103,7 +103,8 @@ do
     -e DAEMON_ID=$c \
     -e JUDGEDAEMON_PASSWORD="$judgehost_password" \
     domjudge/judgehost:latest
-  echo "Judge host $c started."
+    echo "Judge host $((c+1)) started."
 done
 
 echo "Setup complete. All containers are up and running."
+echo "All paswords save in $(pwd)/${FilePath}"
