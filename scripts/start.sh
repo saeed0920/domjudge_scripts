@@ -9,7 +9,7 @@ echo "nameserver 10.202.10.10" > /etc/resolv.conf
 echo "nameserver 10.202.10.11" >> /etc/resolv.conf
 
 # File to store generated passwords
-FilePath="./passwords.txt"
+FilePath="/passwords_domjudge.txt"
 touch $FilePath
 echo "" > $FilePath
 
@@ -103,7 +103,7 @@ do
     -e DAEMON_ID=$c \
     -e JUDGEDAEMON_PASSWORD="$judgehost_password" \
     domjudge/judgehost:latest
-    echo "Judge host $((c+1)) started."
+      echo "Judge host $((c+1)) started."
 done
 
 echo "Setup complete. All containers are up and running."

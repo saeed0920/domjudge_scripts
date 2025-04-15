@@ -25,7 +25,7 @@ usermod -aG sudo $username
 
 # setup for domjudge
 apt update && apt upgrade -y
-apt install nginx snapd vim zsh ca-certificates curl wget -y
+apt install nginx snapd vim zsh ca-certificates curl wget update-grub -y
 
 echo "Check if snap installed"
 snap install hello-world
