@@ -106,5 +106,6 @@ do
       echo "Judge host $((c+1)) started."
 done
 
+echo "" 
 echo "Setup complete. All containers are up and running."
-echo "All paswords save in $(pwd)/${FilePath}"
+echo "All paswords save in /${FilePath}"
