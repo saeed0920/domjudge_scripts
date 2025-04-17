@@ -9,7 +9,7 @@ echo "nameserver 10.202.10.10" > /etc/resolv.conf
 echo "nameserver 10.202.10.11" >> /etc/resolv.conf
 
 # File to store generated passwords
-FilePath="/passwords_domjudge.txt"
+FilePath="~/passwords_domjudge.txt"
 touch $FilePath
 echo "" > $FilePath
 

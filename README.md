@@ -13,3 +13,7 @@
 “The doc folder contains documentation that can be referenced as needed.”
 
 ```
+
+
+## Links
+[erfan's scritp](https://github.com/SSCE-UB/domjudge-automation)
