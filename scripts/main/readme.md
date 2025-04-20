@@ -79,3 +79,5 @@ Currently, Docker is installed via Snap. You can modify the script to install it
 - [ ] Can run on Redhat bases
 
 ##### Feel free to open an issue or PR if you find a bug or want to contribute!
+
+https://hub.docker.com/r/domjudge/domserver/

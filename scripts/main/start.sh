@@ -9,8 +9,8 @@ echo "nameserver 10.202.10.10" > /etc/resolv.conf
 echo "nameserver 10.202.10.11" >> /etc/resolv.conf
 
 # File to store generated passwords
-FilePath="~/passwords_domjudge.txt"
-touch $FilePath
+FilePath="/passwords_domjudge.txt"
+sudo touch $FilePath
 echo "" > $FilePath
 
 # Function to write to the password file
@@ -66,6 +66,7 @@ docker run -dit \
   --restart unless-stopped \
   --link dj-mariadb:mariadb \
   -it \
+  -e CONTAINER_TIMEZONE="Asia/Tehran" \
   -e MYSQL_HOST=mariadb \
   -e MYSQL_USER=domjudge \
   -e MYSQL_DATABASE=domjudge \
@@ -100,6 +101,7 @@ do
     --name judgehost-$c \
     --link domserver:domserver \
     --hostname judgedaemon-$c \
+    -e CONTAINER_TIMEZONE="Asia/Tehran" \
     -e DAEMON_ID=$c \
     -e JUDGEDAEMON_PASSWORD="$judgehost_password" \
     domjudge/judgehost:latest
