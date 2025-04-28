@@ -5,13 +5,17 @@ silent() {
   "$@" &>/dev/null
 }
 
-renameScript()
-{
-  prefixF=$1
-  list=$(ls *.* 2>&1)
-  for file in $list; do 
-    [ -e "$file" ] || continue
-    silent mv "$file" "${file%.*}.${prefixF}"
+renameScript() {
+  prefixF="$1"
+  for file in *; do
+    [ -f "$file" ] || continue 
+    base="${file%.*}"           # File name without extension
+    ext="${file##*.}"           # Extract extension
+    if [ "$file" = "$ext" ]; then
+     silent mv "$file" "${file}.${prefixF}"
+    else
+     silent mv "$file" "${base}.${prefixF}"
+    fi
   done
 }
 
