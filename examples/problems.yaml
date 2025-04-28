@@ -1,0 +1,16 @@
+- id: "hello world"
+  label: A
+  name: "Hello World"
+  ordinal: 1
+  color: gold
+  rgb: "#FFD700"  
+  time_limit: 2.0  
+
+- id: B 
+  label: B
+  name: "Magic Maze"
+  ordinal: 2
+  color: purple
+  rgb: "#800080"
+  time_limit: 3.0
+  #test_data_count: 15

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e 
+
+echo "This script run in $(pwd)"
+read -p "this is ok? y/N " letsgo
+if [ $letsgo = "y" ];then
+  echo ""
+  echo "Lets go"
+  echo ""
+else 
+  exit 1
+fi
+
+problems=$(ls)
+
+for item in $problems; do
+  echo $item
+  pushd $item &>/dev/null
+done 

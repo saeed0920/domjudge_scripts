@@ -1,0 +1,7 @@
+id: demo-contest
+name: "ACM-ICPC Practice Contest"
+formal_name: "2025 Regional Practice Session"
+start_time: "2025-05-15T09:00:00+00:00"  # ISO 8601 format (UTC)
+duration: "5:00:00"                      # 5 hours
+scoreboard_freeze_duration: "1:00:00"    # Freeze 1 hour before end
+penalty_time: 20                         # 20 mins penalty per wrong submission

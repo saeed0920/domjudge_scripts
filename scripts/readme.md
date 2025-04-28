@@ -30,9 +30,13 @@ These two scripts are designed to install necessary packages, configure Docker, 
 
 ## ✂️ Rename Script
 
-Found under: `script/renamescript`
-
-### 🔄 `rename.sh`
-
 This is a utility script to rename all files matching a specific suffix (e.g., `.txt`) to another suffix (e.g., `.in`) in the current directory.
 
+---
+
+## Problems Script
+
+This script should run in root of problems directorys! 
+Each directory should has basic statement for problems in domjudge : see the example of problems in "../examples/problems"
+Then each in and out directory rename file and move into the sample and secret directory
+make sure the sample directory has file!

@@ -110,4 +110,4 @@ done
 
 echo "" 
 echo "Setup complete. All containers are up and running."
-echo "All paswords save in /${FilePath}"
+echo "All paswords save in ${FilePath}"
