@@ -34,7 +34,7 @@ This is a utility script to rename all files matching a specific suffix (e.g., `
 
 ---
 
-## Problems Script
+## 🚩 Problems Script
 
 This script should run in root of problems directorys! 
 Each directory should has basic statement for problems in domjudge : see the example of problems in "../examples/problems"
