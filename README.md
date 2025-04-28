@@ -17,3 +17,9 @@
 
 ## Links
 [erfan's scritp](https://github.com/SSCE-UB/domjudge-automation)
+
+
+## TODO
+- [ ] Add nginx config in setup script
+- [ ] Add custom css files and banner in login page
+- [ ] Set setting domjudge : factor time for java and py
