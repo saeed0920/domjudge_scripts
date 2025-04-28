@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
-set -e 
+
+silent() {
+  "$@" &>/dev/null
+}
+
+renameScript()
+{
+  prefixF=$1
+  list=$(ls *.* 2>&1)
+  for file in $list; do 
+    [ -e "$file" ] || continue
+    silent mv "$file" "${file%.*}.${prefixF}"
+  done
+}
 
 echo "This script run in $(pwd)"
 read -p "this is ok? y/N " letsgo
@@ -11,9 +24,35 @@ else
   exit 1
 fi
 
-problems=$(ls)
+problems=$(ls -d B) 
 
 for item in $problems; do
   echo $item
-  pushd $item &>/dev/null
+  silent pushd $item 
+
+  silent ls Data 
+  if [[ $? -eq 0 ]];then
+  silent mv Data data 
+  fi
+
+  mkdir data/secret data/sample
+
+  silent pushd data/in 
+  renameScript in
+  silent mv *sample* ../sample/
+  silent mv * ../secret/
+  silent popd
+
+  silent pushd data/out
+  renameScript ans 
+  silent mv *sample* ../sample/
+  silent mv * ../secret/
+  silent popd
+
+  rm -r data/in data/out
+  silent zip -r ${item}.zip ./*
+  silent mv ${item}.zip ../
+  echo ""
+  silent popd
+  exit 0 
 done 
