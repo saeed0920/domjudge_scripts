@@ -60,14 +60,13 @@ usermod -aG docker $username
 # pull domjudge_server domjudge_judgehost mariadb
 # Also we can use AbrArvan insted of focker
 # Use AbrArvan for pulling img
-bash -c 'cat > /var/snap/docker/current/config/daemon.json <<EOF
+bash -c 'cat > /etc/docker/config/daemon.json <<EOF
 {
   "insecure-registries" : ["https://docker.arvancloud.ir"],
   "registry-mirrors": ["https://docker.arvancloud.ir"]
 }
 EOF'
 
-snap restart docker
 
 while [ true ]
 do
