@@ -83,7 +83,7 @@ docker pull mariadb
 docker pull domjudge/domserver:latest 
 docker pull domjudge/judgehost:latest
 
-
+sudo systemctl restart docker.service
 # Deetc/default/grub /etc/default/grub.bak
 # Check if the GRUB_CMDLINE_LINUX line exists
 if grep -q "^GRUB_CMDLINE_LINUX=" /etc/default/grub 
