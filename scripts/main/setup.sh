@@ -31,7 +31,8 @@ echo "Check if snap installed"
 snap install hello-world
 checkValid $?
 
-cat "78.157.42.101" > /etc/resolv.conf
+echo "nameserver 178.22.122.100
+nameserver 185.51.200.2" > /etc/resolv.conf
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
