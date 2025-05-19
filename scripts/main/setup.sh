@@ -31,7 +31,8 @@ echo "Check if snap installed"
 snap install hello-world
 checkValid $?
 
-cat "78.157.42.101" > /etc/resolv.conf
+echo "nameserver 178.22.122.100
+nameserver 185.51.200.2" > /etc/resolv.conf
 # Add Docker's official GPG key:
 sudo apt-get update
 sudo apt-get install ca-certificates curl
@@ -67,7 +68,7 @@ bash -c 'cat > /etc/docker/config/daemon.json <<EOF
 }
 EOF'
 
-
+sudo systemctl restart docker.service
 while [ true ]
 do
   sleep 1
@@ -81,7 +82,6 @@ checkValid $?
 docker pull mariadb 
 docker pull domjudge/domserver:latest 
 docker pull domjudge/judgehost:latest
-
 
 # Deetc/default/grub /etc/default/grub.bak
 # Check if the GRUB_CMDLINE_LINUX line exists
