@@ -36,20 +36,47 @@ echo "nameserver 178.22.122.100
 nameserver 185.51.200.2" > /etc/resolv.conf
 # Add Docker's official GPG key:
 
-echo "Add Docker's official GPG key"
 sudo apt-get update
 sudo apt install ca-certificates curl gnupg lsb-release
+# select the ubunto version
+read -p "enter the ubuntu version: 1 = 22.4 , 2 = 24.4 " version
+if [ $version == '2' ]; then
+# for 24 version
+echo "Add Docker's official GPG key for 24 version"
+
 sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
-echo "FINISH"
+
+
 # Add the repository to Apt sources:
 echo "Add the repository to Apt sources"
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
   https://download.docker.com/linux/ubuntu jammy stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+elif [ $version == '1' ]; then
+# for 22 version
 
+echo "Add Docker's official GPG key for 22 version"
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo "Add the repository to Apt sources"
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+else
+    echo "you are very idiot plese run again scripts."
+    exit 1
+fi
+
+sudo apt-get update
 echo "FINISH"
 # Install Docker Engine, CLI, and Containerd:
 
