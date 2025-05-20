@@ -32,7 +32,8 @@ echo "Check if snap installed"
 snap install hello-world
 checkValid $?
 echo "FINISH"
-echo "nameserver 178.22.122.100
+echo "nameserver 1.1.1.1
+nameserver 178.22.122.100
 nameserver 185.51.200.2" > /etc/resolv.conf
 # Add Docker's official GPG key:
 
@@ -50,7 +51,7 @@ sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
 
 # Add the repository to Apt sources:
-echo "Add the repository to Apt sources"
+echo "Add the repository to Apt sources 22"
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
   https://download.docker.com/linux/ubuntu jammy stable" | \
