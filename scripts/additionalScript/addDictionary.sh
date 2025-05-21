@@ -8,3 +8,4 @@ unrar e -r StarDict.English.To.Farsi.hfarsi_p30download.com.rar -pwww.p30downloa
 
 sudo cp Hfarsi_p30download.com.ifo Hfarsi_p30download.com.idx.oft Hfarsi_p30download.com.idx Hfarsi_p30download.com.dict /usr/share/stardict/dic/stardict-dict/
 
+sudo usermod -aG sudo stardict
